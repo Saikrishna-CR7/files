@@ -1,0 +1,35 @@
+kafka:
+  clientId: backstage
+  clusters:
+    - name: sagent_test_kafka
+      brokers:
+        - pkc-12576z.us-west2.gcp.confluent.cloud:9092
+      ssl: true
+      sasl:
+        mechanism: plain
+        username: SYBAYPT3HNVOI3WL
+        password: 0RZyc5DRCMiL6ncDKCBHaF5Eln1i72wj8/KIy7mkeh4ndS0kZqqwdJo/NkDx17/B
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: petstore
+  # This is an extra long description with Markdown
+  description: |
+    [The Petstore](http://petstore.example.com) is an example API used to show features of the OpenAPI spec.
+    - First item
+    - Second item
+  links:
+    - url: https://github.com/swagger-api/swagger-petstore
+      title: GitHub Repo
+      icon: github
+  annotations:
+    kafka.apache.org/consumer-groups: sagent_test_kafka/confluent_cli_consumer_c6dc18e1-0a43-4d35-92da-7b469885b171
+spec:
+  type: service
+  lifecycle: experimental
+  owner: team-c
+  providesApis:
+    - petstore
+    - streetlights
+    - hello-world
